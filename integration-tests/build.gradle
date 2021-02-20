@@ -1,0 +1,24 @@
+def sourceProjects = [':project-a', ':project-b']
+
+dependencies {
+    sourceProjects.forEach {
+        testImplementation project(it).sourceSets.test.output
+    }
+}
+
+test {
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+
+    sourceProjects.forEach {
+        testClassesDirs += project(it).sourceSets.test.output.classesDirs
+    }
+
+    classpath = sourceSets.test.runtimeClasspath
+    sourceProjects.forEach {
+        classpath += project(it).sourceSets.test.runtimeClasspath
+    }
+}

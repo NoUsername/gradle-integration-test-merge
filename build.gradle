@@ -1,0 +1,29 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.4.30"
+}
+
+repositories {
+    jcenter() 
+}
+
+subprojects { p ->
+    apply plugin: 'kotlin'
+
+    repositories {
+        jcenter() 
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    }
+
+    if (p.name.contains('project-')) {
+        test {
+            useJUnitPlatform {
+                excludeTags 'integration'
+            }
+        }
+    }
+
+}

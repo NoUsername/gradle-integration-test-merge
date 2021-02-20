@@ -1,0 +1,4 @@
+rootProject.name = 'testgradleproject'
+include 'project-a'
+include 'project-b'
+include 'integration-tests'

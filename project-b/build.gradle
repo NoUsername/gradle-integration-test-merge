@@ -1,0 +1,18 @@
+dependencies {
+    testImplementation project(':project-a').sourceSets.test.output
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.test.output.classesDirs + project(':project-a').sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath + project(':project-a').sourceSets.test.runtimeClasspath
+    shouldRunAfter test
+}
+
+integrationTest {
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+}
